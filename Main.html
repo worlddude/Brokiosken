@@ -4,91 +4,100 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brokiosken App</title>
+
   <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: #f8fafc;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+   body {
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(160deg, #dbeafe 0%, #93c5fd 100%);
+  background-size: cover;
+}
 
-    /* LOGIN PAGE */
-    .container {
-      width: 90%;
-      max-width: 360px;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      padding: 40px 30px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+/* LOGIN PAGE */
+.container {
+  width: 90%;
+  max-width: 360px;
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent white */
+  backdrop-filter: blur(10px); /* gives frosted-glass effect */
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  padding: 40px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    h1 {
-      font-size: 28px;
-      color: #1e3a8a;
-      margin-bottom: 30px;
-    }
+.container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
 
-    input {
-      width: 100%;
-      max-width: 280px;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      font-size: 16px;
-      text-align: center;
-    }
+h1 {
+  font-size: 28px;
+  color: #1e3a8a;
+  margin-bottom: 30px;
+}
 
-    button {
-      width: 100%;
-      max-width: 280px;
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background-color: #bfdbfe;
-      color: #1e3a8a;
-      font-weight: bold;
-      margin-bottom: 10px;
-      transition: background-color 0.2s;
-    }
+input {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+}
 
-    button:hover {
-      background-color: #93c5fd;
-    }
+button {
+  width: 100%;
+  max-width: 280px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #bfdbfe;
+  color: #1e3a8a;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: background-color 0.2s;
+}
 
-    .divider {
-      margin: 15px 0;
-      color: #94a3b8;
-    }
+button:hover {
+  background-color: #93c5fd;
+}
 
-    p#status {
-      transition: opacity 0.4s;
-      opacity: 0;
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 20px;
-    }
+.divider {
+  margin: 15px 0;
+  color: #94a3b8;
+}
 
-    /* MAIN PAGE */
-    #mainPage {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 400px;
-      height: 100vh;
-      background: #f9fafb;
-    }
+p#status {
+  transition: opacity 0.4s;
+  opacity: 0;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 20px;
+}
 
+/* MAIN PAGE */
+#mainPage {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: #f9fafb;
+}  
     .header {
       background: #1e3a8a;
       color: white;
@@ -176,6 +185,12 @@
       text-align: center;
     }
   </style>
+
+
+
+
+
+    
 </head>
 <body>
 
