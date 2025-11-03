@@ -1,1 +1,24 @@
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+  const supabase = createClient('https://olfvimlmyqtadzkwiibg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZnZpbWxteXF0YWR6a3dpaWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDgyNTcsImV4cCI6MjA3NzcyNDI1N30.KgNwLHO7fDH1YCRb5cEc9Yo-mSNtae83B783o-0Hqr4')
 
+  // Opret bruger
+  async function signup(email, password) {
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+    if (error) alert(error.message)
+    else alert("Bruger oprettet! Tjek din email for bekræftelse.")
+  }
+
+  // Log ind
+  async function login(email, password) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
+    if (error) alert(error.message)
+    else alert("Du er nu logget ind!")
+  }
+</script>
