@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="da">
 <head>
   <meta charset="UTF-8" />
@@ -79,7 +79,7 @@
       margin-top: 20px;
     }
 
-    /* --- MAIN APP VIEW --- */
+    /* --- MAIN APP --- */
     #mainPage {
       display: none;
       flex-direction: column;
@@ -102,36 +102,19 @@
       border-radius: 0 0 20px 20px;
     }
 
-    .search-bar {
-      width: 90%;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .search-bar input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      text-align: left;
-    }
-
-    .product-list {
-      margin-top: 20px;
-      width: 90%;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      overflow-y: auto;
+    .content {
       flex-grow: 1;
+      width: 90%;
+      margin-top: 20px;
+      overflow-y: auto;
     }
 
-    .product-card {
+    .product-card, .offer-card {
       background: #fff;
       border-radius: 12px;
       padding: 15px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -157,12 +140,27 @@
       cursor: pointer;
     }
 
-    .logout {
-      margin-top: 15px;
-      background-color: #fca5a5;
-      color: #991b1b;
+    /* Profile page */
+    .profile-info {
+      text-align: center;
     }
 
+    .profile-info h3 {
+      color: #1e3a8a;
+    }
+
+    .profile-info p {
+      color: #475569;
+      font-size: 15px;
+      margin: 5px 0;
+    }
+
+    .logout-btn {
+      background-color: #fca5a5;
+      color: #991b1b;
+      width: 80%;
+      margin-top: 15px;
+    }
   </style>
 </head>
 <body>
@@ -178,35 +176,18 @@
     <p id="status"></p>
   </div>
 
-  <!-- MAIN PAGE -->
+  <!-- MAIN APP -->
   <div id="mainPage">
-    <div class="header">Brokiosken</div>
+    <div class="header" id="pageTitle">Butik</div>
 
-    <div class="search-bar">
-      <input type="text" placeholder="Søg efter produkter..." />
-    </div>
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="content" id="pageContent"></div>
 
-    <div class="product-list" id="products">
-      <div class="product-card">
-        <span>Kaffe To Go</span>
-        <span>25 kr</span>
-      </div>
-      <div class="product-card">
-        <span>Sandwich</span>
-        <span>40 kr</span>
-      </div>
-      <div class="product-card">
-        <span>Chokoladebar</span>
-        <span>15 kr</span>
-      </div>
-    </div>
-
-    <button class="logout" onclick="logoutUser()">Log ud</button>
-
+    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
-      <button>Tilbud</button>
-      <button>Nyheder</button>
-      <button>Loyalitet</button>
+      <button onclick="showSection('offers')">Tilbud</button>
+      <button onclick="showSection('store')">Butik</button>
+      <button onclick="showSection('profile')">Profil</button>
     </div>
   </div>
 
@@ -221,6 +202,8 @@
     const status = document.getElementById('status')
     const loginPage = document.getElementById('loginPage')
     const mainPage = document.getElementById('mainPage')
+    const pageContent = document.getElementById('pageContent')
+    const pageTitle = document.getElementById('pageTitle')
 
     function showMessage(text, success = true) {
       status.textContent = text
@@ -253,6 +236,7 @@
         setTimeout(() => {
           loginPage.style.display = 'none'
           mainPage.style.display = 'flex'
+          showSection('store')
         }, 800)
       }
     }
@@ -264,9 +248,41 @@
       showMessage('Du er logget ud.', true)
     }
 
+    function showSection(section) {
+      pageContent.innerHTML = ''
+      if (section === 'store') {
+        pageTitle.textContent = 'Butik'
+        pageContent.innerHTML = `
+          <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
+          <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
+          <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
+          <div class="product-card"><span>Vand</span><span>10 kr</span></div>
+        `
+      } else if (section === 'offers') {
+        pageTitle.textContent = 'Tilbud & Nyheder'
+        pageContent.innerHTML = `
+          <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
+          <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
+          <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
+        `
+      } else if (section === 'profile') {
+        pageTitle.textContent = 'Profil'
+        const user = supabase.auth.getUser()
+        pageContent.innerHTML = `
+          <div class="profile-info">
+            <h3>Din profil</h3>
+            <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+            <p><strong>Loyalitetspoint:</strong> 120 point</p>
+            <button class="logout-btn" onclick="logoutUser()">Log ud</button>
+          </div>
+        `
+      }
+    }
+
     window.signupUser = signupUser
     window.loginUser = loginUser
     window.logoutUser = logoutUser
+    window.showSection = showSection
   </script>
 </body>
 </html>
