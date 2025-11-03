@@ -1,24 +1,111 @@
-<script type="module">
-  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-  const supabase = createClient('https://olfvimlmyqtadzkwiibg.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZnZpbWxteXF0YWR6a3dpaWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDgyNTcsImV4cCI6MjA3NzcyNDI1N30.KgNwLHO7fDH1YCRb5cEc9Yo-mSNtae83B783o-0Hqr4')
 
-  // Opret bruger
-  async function signup(email, password) {
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    })
-    if (error) alert(error.message)
-    else alert("Bruger oprettet! Tjek din email for bekræftelse.")
-  }
+  <!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brokiosken Login</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f8fafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-  // Log ind
-  async function login(email, password) {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
-    if (error) alert(error.message)
-    else alert("Du er nu logget ind!")
-  }
-</script>
+    .container {
+      width: 90%;
+      max-width: 360px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 26px;
+      color: #1e3a8a;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #bfdbfe;
+      color: #1e3a8a;
+      font-weight: bold;
+      margin-bottom: 10px;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #93c5fd;
+    }
+
+    p {
+      color: #64748b;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .divider {
+      margin: 15px 0;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Brokiosken</h1>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Adgangskode" />
+    <button onclick="loginUser()">Log ind</button>
+    <div class="divider">eller</div>
+    <button onclick="signupUser()">Opret bruger</button>
+    <p id="status"></p>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+    const supabase = createClient(
+      'https://olfvimlmyqtadzkwiibg.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZnZpbWxteXF0YWR6a3dpaWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDgyNTcsImV4cCI6MjA3NzcyNDI1N30.KgNwLHO7fDH1YCRb5cEc9Yo-mSNtae83B783o-0Hqr4'
+    )
+
+    async function signupUser() {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+      const { error } = await supabase.auth.signUp({ email, password })
+      const status = document.getElementById('status')
+      if (error) status.textContent = error.message
+      else status.textContent = "Bruger oprettet! Tjek din email for bekræftelse."
+    }
+
+    async function loginUser() {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+      const status = document.getElementById('status')
+      if (error) status.textContent = error.message
+      else status.textContent = "Du er nu logget ind!"
+    }
+  </script>
+</body>
+</html>
