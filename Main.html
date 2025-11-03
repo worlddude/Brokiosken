@@ -99,14 +99,14 @@ p#status {
   background: #f9fafb;
 }  
     .header {
-      background: #1e3a8a;
+      display: none;
+    }
+
+    .bottom-nav button.active {
       color: white;
-      width: 100%;
-      padding: 18px;
-      font-size: 20px;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 0 0 20px 20px;
+      background-color: #1e3a8a;
+      border-radius: 10px;
+      padding: 8px 12px;
     }
 
     .content {
@@ -185,12 +185,6 @@ p#status {
       text-align: center;
     }
   </style>
-
-
-
-
-
-    
 </head>
 <body>
 
@@ -275,43 +269,61 @@ p#status {
       showMessage('Du er logget ud.', true)
     }
 
-    function showSection(section) {
-      pageContent.innerHTML = ''
-      if (section === 'store') {
-        pageTitle.textContent = 'Butik'
-        pageContent.innerHTML = `
-          <div class="search-box">
-            <input type="text" placeholder="Søg efter produkter..." />
-          </div>
-          <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
-          <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
-          <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
-          <div class="product-card"><span>Vand</span><span>10 kr</span></div>
-        `
-      } else if (section === 'news') {
-        pageTitle.textContent = 'Nyheder'
-        pageContent.innerHTML = `
-          <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
-          <div class="offer-card"><span>☕ Vi lancerer ny espresso!</span></div>
-        `
-      } else if (section === 'profile') {
-        pageTitle.textContent = 'Profil'
-        pageContent.innerHTML = `
-          <div class="profile-info">
-            <h3>Din profil</h3>
-            <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
-            <p><strong>Loyalitetspoint:</strong> 120 point</p>
 
-            <h4 style="margin-top:20px;color:#1e3a8a;">Tilbud</h4>
-            <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
-            <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
 
-            <button class="logout-btn" onclick="logoutUser()">Log ud</button>
-          </div>
-        `
-      }
-    }
 
+
+
+      
+function showSection(section) {
+  pageContent.innerHTML = ''
+
+  // Remove active class from all bottom nav buttons
+  document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active'))
+
+  // Add active class to the clicked section button
+  const btn = document.querySelector(`.bottom-nav button[onclick="showSection('${section}')"]`)
+  if (btn) btn.classList.add('active')
+
+  if (section === 'store') {
+    pageContent.innerHTML = `
+      <div class="search-box">
+        <input type="text" placeholder="Søg efter produkter..." />
+      </div>
+      <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
+      <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
+      <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
+      <div class="product-card"><span>Vand</span><span>10 kr</span></div>
+    `
+  } else if (section === 'news') {
+    pageContent.innerHTML = `
+      <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
+      <div class="offer-card"><span>☕ Vi lancerer ny espresso!</span></div>
+    `
+  } else if (section === 'profile') {
+    pageContent.innerHTML = `
+      <div class="profile-info">
+        <h3>Din profil</h3>
+        <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+        <p><strong>Loyalitetspoint:</strong> 120 point</p>
+
+        <h4 style="margin-top:20px;color:#1e3a8a;">Tilbud</h4>
+        <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
+        <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
+
+        <button class="logout-btn" onclick="logoutUser()">Log ud</button>
+      </div>
+    `
+  }
+}
+
+
+
+
+
+
+
+      
     window.signupUser = signupUser
     window.loginUser = loginUser
     window.logoutUser = logoutUser
