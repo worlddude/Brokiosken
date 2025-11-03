@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="da">
 <head>
   <meta charset="UTF-8" />
@@ -13,10 +13,9 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      transition: background 0.3s;
     }
 
-    /* --- LOGIN CONTAINER --- */
+    /* LOGIN PAGE */
     .container {
       width: 90%;
       max-width: 360px;
@@ -79,7 +78,7 @@
       margin-top: 20px;
     }
 
-    /* --- MAIN APP --- */
+    /* MAIN PAGE */
     #mainPage {
       display: none;
       flex-direction: column;
@@ -88,7 +87,6 @@
       max-width: 400px;
       height: 100vh;
       background: #f9fafb;
-      position: relative;
     }
 
     .header {
@@ -140,7 +138,7 @@
       cursor: pointer;
     }
 
-    /* Profile page */
+    /* PROFILE PAGE */
     .profile-info {
       text-align: center;
     }
@@ -161,11 +159,27 @@
       width: 80%;
       margin-top: 15px;
     }
+
+    /* SEARCH FIELD */
+    .search-box {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 90%;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
-  <!-- LOGIN PAGE -->
+  <!-- LOGIN -->
   <div class="container" id="loginPage">
     <h1>Brokiosken</h1>
     <input type="email" id="email" placeholder="Email" />
@@ -176,22 +190,20 @@
     <p id="status"></p>
   </div>
 
-  <!-- MAIN APP -->
+  <!-- MAIN -->
   <div id="mainPage">
     <div class="header" id="pageTitle">Butik</div>
 
-    <!-- MAIN CONTENT CONTAINER -->
     <div class="content" id="pageContent"></div>
 
-    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
-      <button onclick="showSection('offers')">Tilbud</button>
+      <button onclick="showSection('news')">Nyheder</button>
       <button onclick="showSection('store')">Butik</button>
       <button onclick="showSection('profile')">Profil</button>
     </div>
   </div>
 
-  <!-- SUPABASE SCRIPT -->
+  <!-- SCRIPT -->
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
     const supabase = createClient(
@@ -253,26 +265,32 @@
       if (section === 'store') {
         pageTitle.textContent = 'Butik'
         pageContent.innerHTML = `
+          <div class="search-box">
+            <input type="text" placeholder="Søg efter produkter..." />
+          </div>
           <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
           <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
           <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
           <div class="product-card"><span>Vand</span><span>10 kr</span></div>
         `
-      } else if (section === 'offers') {
-        pageTitle.textContent = 'Tilbud & Nyheder'
+      } else if (section === 'news') {
+        pageTitle.textContent = 'Nyheder'
         pageContent.innerHTML = `
-          <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
-          <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
           <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
+          <div class="offer-card"><span>☕ Vi lancerer ny espresso!</span></div>
         `
       } else if (section === 'profile') {
         pageTitle.textContent = 'Profil'
-        const user = supabase.auth.getUser()
         pageContent.innerHTML = `
           <div class="profile-info">
             <h3>Din profil</h3>
             <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
             <p><strong>Loyalitetspoint:</strong> 120 point</p>
+
+            <h4 style="margin-top:20px;color:#1e3a8a;">Tilbud</h4>
+            <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
+            <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
+
             <button class="logout-btn" onclick="logoutUser()">Log ud</button>
           </div>
         `
