@@ -130,7 +130,7 @@
 
     .bottom-nav button { background:none; border:none; color:#1e3a8a; font-weight:500; font-size:12px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:4px; }
     .bottom-nav button img { width:24px; height:24px; }
-    .bottom-nav button.active { background-color:#a1b6ed; color:#fff; padding:6px 10px; border-radius:10px; }
+    .bottom-nav button.active { background-color:#1e3a8a; color:#fff; padding:6px 10px; border-radius:10px; }
 
     /* SEARCH */
     .search-box { width:100%; display:flex; justify-content:center; margin-bottom:12px; }
@@ -161,8 +161,8 @@
       <h1>Brokiosken</h1>
       <input type="email" id="email" placeholder="Email" />
       <input type="password" id="password" placeholder="Adgangskode" />
-      <button onclick="signupUser()">Opret bruger</button>
-      <button onclick="loginUser()">Log ind</button>
+      <button id="signupBtn">Opret bruger</button>
+      <button id="loginBtn">Log ind</button>
       <p id="status"></p>
     </div>
 
@@ -171,27 +171,27 @@
       <div class="header">
         <h2 id="pageTitle">Butik</h2>
         <div class="right">
-          <button class="cart-btn" id="cartToggle" title="Vis kurv" onclick="toggleCart()">
+          <button class="cart-btn" id="cartToggle" title="Vis kurv">
             <img src="./icons/cart.png" alt="Kurv" style="width:24px;height:24px;" />
             <span class="cart-count" id="cartCount" style="display:none">0</span>
           </button>
           <div style="width:8px"></div>
-          <button onclick="showSection('profile')" title="Profil" style="border:none;background:none;cursor:pointer;"></button>
+          <button id="profileBtn" title="Profil" style="border:none;background:none;cursor:pointer;"><img src="./icons/user.png" style="width:24px;height:24px;"/></button>
         </div>
       </div>
 
       <div class="content" id="pageContent"></div>
 
       <div class="bottom-nav">
-        <button data-section="news" onclick="showSection('news')">
-          <img src="./icons/discount.png" alt="Tilbud" />
+        <button data-section="news" id="navNews">
+          <img src="./icons/discount.png" alt="Nyheder" />
           <span>Nyheder</span>
         </button>
-        <button data-section="store" onclick="showSection('store')">
+        <button data-section="store" id="navStore">
           <img src="./icons/shop.png" alt="Butik" />
           <span>Butik</span>
         </button>
-        <button data-section="profile" onclick="showSection('profile')">
+        <button data-section="profile" id="navProfile">
           <img src="./icons/user.png" alt="Profil" />
           <span>Profil</span>
         </button>
@@ -201,13 +201,13 @@
       <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
           <strong>Din kurv</strong>
-          <button onclick="closeCart()" style="border:none;background:none;cursor:pointer;font-weight:700">✕</button>
+          <button id="closeCartBtn" style="border:none;background:none;cursor:pointer;font-weight:700">✕</button>
         </div>
         <div class="cart-list" id="cartList"></div>
         <div class="cart-actions">
           <div><strong>Total:</strong> <span id="cartTotal">0 kr</span></div>
           <div>
-            <button class="checkout-btn" onclick="checkout()">Køb</button>
+            <button class="checkout-btn" id="checkoutBtn">Køb</button>
           </div>
         </div>
       </div>
@@ -230,6 +230,9 @@
     const pageTitle = document.getElementById('pageTitle')
     const cartCountEl = document.getElementById('cartCount')
     const cartDrawer = document.getElementById('cartDrawer')
+    const cartToggle = document.getElementById('cartToggle')
+    const closeCartBtn = document.getElementById('closeCartBtn')
+    const checkoutBtn = document.getElementById('checkoutBtn')
 
     function showMessage(text, success = true) {
       status.textContent = text
@@ -276,9 +279,7 @@
     }
 
     // ---------- CART ----------
-    function getCart() {
-      try { return JSON.parse(localStorage.getItem('brokiosken_cart') || '[]') } catch(e){ return [] }
-    }
+    function getCart() { try { return JSON.parse(localStorage.getItem('brokiosken_cart') || '[]') } catch(e){ return [] } }
     function saveCart(cart){ localStorage.setItem('brokiosken_cart', JSON.stringify(cart)); renderCartCount(); }
 
     function addToCart(product){
@@ -314,28 +315,50 @@
       let total = 0
       cart.forEach(item => {
         total += (item.price || 0) * (item.qty || 1)
+
         const row = document.createElement('div')
         row.className = 'cart-row'
-        row.innerHTML = `
-          <img src="${item.image_url || './icons/placeholder.png'}" alt="${item.name}" />
-          <div style="flex:1">
-            <div style="font-weight:700">${item.name}</div>
-            <div style="font-size:13px">${item.qty} × ${item.price} kr</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-            <button style="border:none;background:none;cursor:pointer;color:#ef4444;font-weight:700" onclick="removeFromCart(${item.id})">Fjern</button>
-          </div>
-        `
+
+        const img = document.createElement('img')
+        img.src = item.image_url || './icons/placeholder.png'
+        img.alt = item.name
+
+        const info = document.createElement('div')
+        info.style.flex = '1'
+        info.innerHTML = `<div style="font-weight:700">${item.name}</div><div style="font-size:13px">${item.qty} × ${item.price} kr</div>`
+
+        const actions = document.createElement('div')
+        actions.style.display = 'flex'
+        actions.style.flexDirection = 'column'
+        actions.style.gap = '6px'
+        actions.style.alignItems = 'flex-end'
+
+        const remBtn = document.createElement('button')
+        remBtn.style.border = 'none'
+        remBtn.style.background = 'none'
+        remBtn.style.cursor = 'pointer'
+        remBtn.style.color = '#ef4444'
+        remBtn.style.fontWeight = '700'
+        remBtn.textContent = 'Fjern'
+        remBtn.addEventListener('click', () => removeFromCart(item.id))
+
+        actions.appendChild(remBtn)
+
+        row.appendChild(img)
+        row.appendChild(info)
+        row.appendChild(actions)
+
         cartList.appendChild(row)
       })
       document.getElementById('cartTotal').textContent = `${total} kr`
       renderCartCount()
     }
 
-    function checkout(){
+    async function checkoutCart(){
       const cart = getCart()
       if(!cart.length) return showMessage('Din kurv er tom', false)
-      // Placeholder: here you'd call your payments or orders API
+      // Placeholder: here you'd call your payments or orders API or insert into a Supabase 'orders' table
+      // Example: await supabase.from('orders').insert({ user_id: user.id, items: cart, total })
       localStorage.removeItem('brokiosken_cart')
       renderCartCount()
       renderCart()
@@ -344,33 +367,40 @@
     }
 
     // ---------- UI & DATA ----------
-    // helper to resolve image url; supports full url or a path stored in Supabase storage bucket 'product-images'
     async function resolveImageUrl(imageField){
       if(!imageField) return './icons/placeholder.png'
       if(imageField.startsWith('http')) return imageField
       try {
         // assume path in storage bucket 'product-images'
         const { data } = supabase.storage.from('product-images').getPublicUrl(imageField)
-        if(data && data.publicUrl) return data.publicUrl
-      } catch(e){}
-      return imageField
+        return (data && data.publicUrl) ? data.publicUrl : './icons/placeholder.png'
+      } catch(e){ console.warn('resolveImageUrl error', e); return './icons/placeholder.png' }
     }
 
     async function fetchProducts(){
-      // Expecting table 'products' with columns: id, name, price, image_url (or image_path)
-      const { data, error } = await supabase.from('products').select('id,name,price,image_url')
-      if(error){ console.error('Products fetch error', error); return [] }
-      return data || []
+      // Expecting table 'products' with columns: id, name, price, image_url
+      try{
+        const { data, error } = await supabase.from('products').select('id,name,price,image_url')
+        if(error){
+          console.error('Products fetch error', error)
+          showMessage('Kunne ikke hente produkter: ' + (error.message || 'fejl'), false)
+          return []
+        }
+        return data || []
+      } catch(err){
+        console.error('fetchProducts unexpected error', err)
+        showMessage('Uventet fejl ved hentning af produkter', false)
+        return []
+      }
     }
 
     async function fetchOffers(){
-      // Try to get offers from table 'offers' (id, title, description)
-      const { data, error } = await supabase.from('offers').select('id,title,description')
-      if(error || !data) return [
-        { id: 1, title: '🎉 2x Kaffe To Go - kun 40 kr!', description: '' },
-        { id: 2, title: '🥪 Ny sandwich: Kylling & Bacon', description: '' }
-      ]
-      return data
+      // Try to get offers from table 'offers' (id, title, description, type)
+      try{
+        const { data, error } = await supabase.from('offers').select('id,title,description,type')
+        if(error || !data) return null
+        return data
+      } catch(e){ return null }
     }
 
     // Render helpers
@@ -381,25 +411,40 @@
       products.forEach(p => {
         const card = document.createElement('div')
         card.className = 'product-card'
-        const imgSrc = p.image_url || './icons/placeholder.png'
-        card.innerHTML = `
-          <img src="${imgSrc}" alt="${p.name}" />
-          <div class="product-info">
-            <div style="font-weight:700">${p.name}</div>
-            <div style="color:#64748b;font-size:13px">Produkt-id: ${p.id}</div>
-          </div>
-          <div class="product-actions">
-            <div class="price">${p.price} kr</div>
-            <button class="buy-btn" onclick='addToCart(${JSON.stringify(p).replace(/'/g,"\\'")})'>Køb</button>
-          </div>
-        `
+
+        const img = document.createElement('img')
+        img.src = p.image_url || './icons/placeholder.png'
+        img.alt = p.name
+
+        const info = document.createElement('div')
+        info.className = 'product-info'
+        info.innerHTML = `<div style="font-weight:700">${p.name}</div><div style="color:#64748b;font-size:13px">Produkt-id: ${p.id}</div>`
+
+        const actions = document.createElement('div')
+        actions.className = 'product-actions'
+
+        const price = document.createElement('div')
+        price.className = 'price'
+        price.textContent = `${p.price} kr`
+
+        const buyBtn = document.createElement('button')
+        buyBtn.className = 'buy-btn'
+        buyBtn.textContent = 'Køb'
+        buyBtn.addEventListener('click', () => addToCart(p))
+
+        actions.appendChild(price)
+        actions.appendChild(buyBtn)
+
+        card.appendChild(img)
+        card.appendChild(info)
+        card.appendChild(actions)
+
         grid.appendChild(card)
       })
       return grid
     }
 
     async function showSection(section){
-      // Note: this function is called from HTML onclick - it may be async.
       pageContent.innerHTML = ''
 
       // Reset bottom nav active state
@@ -415,7 +460,7 @@
         searchWrap.innerHTML = `<input type='text' id='productSearch' placeholder='Søg efter produkter...' />`
         pageContent.appendChild(searchWrap)
 
-        const products = await fetchProducts()
+        let products = await fetchProducts()
 
         // resolve image urls in parallel and normalize price
         await Promise.all(products.map(async p => {
@@ -434,55 +479,102 @@
           const q = e.target.value.toLowerCase().trim()
           const filtered = products.filter(p => p.name.toLowerCase().includes(q))
           const newGrid = renderProductsList(filtered)
-          // replace old grid
           const oldGrid = pageContent.querySelector('.product-grid')
           if(oldGrid) oldGrid.replaceWith(newGrid)
         })
 
       } else if(section === 'news'){
         pageTitle.textContent = 'Nyheder'
-        const offers = await fetchOffers()
+        const fetched = await fetchOffers()
+
+        // We'll split into two groups: "Nyheder" and "Deals" based on 'type' field if present
+        let news = []
+        let deals = []
+        if(Array.isArray(fetched)){
+          fetched.forEach(o => {
+            if(o.type && o.type.toLowerCase() === 'deal') deals.push(o)
+            else if(o.type && o.type.toLowerCase() === 'news') news.push(o)
+            else news.push(o) // default to news
+          })
+        } else {
+          // fallback demo content
+          news = [ { id: 1, title: '📰 Nyhed: Vi åbner kl. 6 hver dag!', description: '' } ]
+          deals = [ { id: 2, title: '🎉 2x Kaffe To Go - kun 40 kr!', description: '' }, { id:3, title: '🥪 Ny sandwich: Kylling & Bacon', description: '' } ]
+        }
+
         const container = document.createElement('div')
         container.style.display = 'flex'
         container.style.flexDirection = 'column'
         container.style.gap = '10px'
 
-        offers.forEach(o => {
+        // news group
+        const newsHeader = document.createElement('div')
+        newsHeader.style.fontWeight = '800'
+        newsHeader.style.marginTop = '6px'
+        newsHeader.textContent = 'Nyheder'
+        container.appendChild(newsHeader)
+
+        news.forEach(o => {
           const card = document.createElement('div')
           card.className = 'offer-card'
           card.innerHTML = `<div style="font-weight:700">${o.title || o.name}</div><div style="color:#475569;font-size:13px">${o.description || ''}</div>`
           container.appendChild(card)
         })
+
+        // deals group
+        const dealsHeader = document.createElement('div')
+        dealsHeader.style.fontWeight = '800'
+        dealsHeader.style.marginTop = '10px'
+        dealsHeader.textContent = 'Tilbud'
+        container.appendChild(dealsHeader)
+
+        deals.forEach(o => {
+          const card = document.createElement('div')
+          card.className = 'offer-card'
+          card.innerHTML = `<div style="font-weight:700">${o.title || o.name}</div><div style="color:#475569;font-size:13px">${o.description || ''}</div>`
+          container.appendChild(card)
+        })
+
         pageContent.appendChild(container)
 
       } else if(section === 'profile'){
         pageTitle.textContent = 'Profil'
-        const user = supabase.auth.getUser ? (await supabase.auth.getUser()).data.user : null
+        const userResp = await supabase.auth.getUser()
+        const user = userResp && userResp.data ? userResp.data.user : null
         const email = (user && user.email) || document.getElementById('email').value || ''
         const profileWrap = document.createElement('div')
         profileWrap.innerHTML = `
           <div style="padding:8px">
-            <h3 style="color:#4a609e;">Din profil</h3>
+            <h3 style="color:#1e3a8a;">Din profil</h3>
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Loyalitetspoint:</strong> 120 point</p>
-            <button class="logout-btn" onclick="logoutUser()">Log ud</button>
+            <button class="logout-btn" id="logoutBtn">Log ud</button>
           </div>
         `
         pageContent.appendChild(profileWrap)
+        // Attach logout handler
+        document.getElementById('logoutBtn').addEventListener('click', logoutUser)
       }
     }
 
-    // expose functions to window
-    window.signupUser = signupUser
-    window.loginUser = loginUser
-    window.logoutUser = logoutUser
-    window.showSection = showSection
+    // expose functions to window where useful
     window.addToCart = addToCart
     window.toggleCart = toggleCart
     window.openCart = openCart
     window.closeCart = closeCart
     window.removeFromCart = removeFromCart
-    window.checkout = checkout
+    window.checkoutCart = checkoutCart
+
+    // hookup UI buttons
+    document.getElementById('signupBtn').addEventListener('click', signupUser)
+    document.getElementById('loginBtn').addEventListener('click', loginUser)
+    document.getElementById('navStore').addEventListener('click', () => showSection('store'))
+    document.getElementById('navNews').addEventListener('click', () => showSection('news'))
+    document.getElementById('navProfile').addEventListener('click', () => showSection('profile'))
+    cartToggle.addEventListener('click', toggleCart)
+    closeCartBtn.addEventListener('click', closeCart)
+    checkoutBtn.addEventListener('click', checkoutCart)
+    document.getElementById('profileBtn').addEventListener('click', () => showSection('profile'))
 
     // initialize
     (function init(){
