@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="da">
 <head>
   <meta charset="UTF-8" />
@@ -6,107 +6,101 @@
   <title>Brokiosken App</title>
 
   <style>
-   body {
-  font-family: system-ui, -apple-system, sans-serif;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: url('./background.jpg') no-repeat center center;
-  background-size: cover;
-}
-
-/* LOGIN PAGE */
-.container {
-  width: 90%;
-  max-width: 360px;
-  background: rgba(255, 255, 255, 0.65); /* semi-transparent white */
-  backdrop-filter: blur(10px); /* gives frosted-glass effect */
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  padding: 40px 30px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-h1 {
-  font-size: 28px;
-  color: #1e3a8a;
-  margin-bottom: 30px;
-}
-
-input {
-  width: 100%;
-  max-width: 280px;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 16px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.7);
-}
-
-button {
-  width: 100%;
-  max-width: 280px;
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: #bfdbfe;
-  color: #1e3a8a;
-  font-weight: bold;
-  margin-bottom: 10px;
-  transition: background-color 0.2s;
-}
-
-button:hover {
-  background-color: #93c5fd;
-}
-
-.divider {
-  margin: 15px 0;
-  color: #1e3a8a;
-}
-
-p#status {
-  transition: opacity 0.4s;
-  opacity: 0;
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 20px;
-}
-
-/* MAIN PAGE */
-#mainPage {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  height: 100vh;
-  background: #f9fafb;
-}  
-    .header {
-      display: none;
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('./background.jpg') no-repeat center center;
+      background-size: cover;
     }
 
-    .bottom-nav button.active {
-      color: #f9fafb;
-      background-color: #1e3a8a;
+    /* LOGIN PAGE */
+    .container {
+      width: 90%;
+      max-width: 360px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #1e3a8a;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      max-width: 280px;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
-      padding: 8px 12px;
+      font-size: 16px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    button {
+      width: 100%;
+      max-width: 280px;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #bfdbfe;
+      color: #1e3a8a;
+      font-weight: bold;
+      margin-bottom: 10px;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #93c5fd;
+    }
+
+    .divider {
+      margin: 15px 0;
+      color: #1e3a8a;
+    }
+
+    p#status {
+      transition: opacity 0.4s;
+      opacity: 0;
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 20px;
+    }
+
+    /* MAIN PAGE */
+    #mainPage {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      background: #f9fafb;
+    }
+
+    .header {
+      display: none;
     }
 
     .content {
@@ -127,11 +121,12 @@ p#status {
       align-items: center;
     }
 
+    /* BOTTOM NAVIGATION */
     .bottom-nav {
       display: flex;
       justify-content: space-around;
       background: #e0e7ff;
-      padding: 15px 0;
+      padding: 10px 0;
       width: 100%;
       border-radius: 20px 20px 0 0;
       position: sticky;
@@ -142,9 +137,37 @@ p#status {
       background: none;
       border: none;
       color: #1e3a8a;
-      font-weight: 600;
-      font-size: 15px;
+      font-weight: 500;
+      font-size: 12px;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: background-color 0.2s;
+    }
+
+    .bottom-nav button img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      opacity: 0.85;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .bottom-nav button.active {
+      background-color: #1e3a8a;
+      border-radius: 10px;
+      padding: 6px 10px;
+    }
+
+    .bottom-nav button.active img {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .bottom-nav button.active span {
+      color: #f9fafb;
     }
 
     /* PROFILE PAGE */
@@ -206,9 +229,18 @@ p#status {
     <div class="content" id="pageContent"></div>
 
     <div class="bottom-nav">
-      <button onclick="showSection('news')">Nyheder</button>
-      <button onclick="showSection('store')">Butik</button>
-      <button onclick="showSection('profile')">Profil</button>
+      <button onclick="showSection('news')" data-section="news">
+        <img src="./icons/news.png" alt="Nyheder" />
+        <span>Nyheder</span>
+      </button>
+      <button onclick="showSection('store')" data-section="store">
+        <img src="./icons/store.png" alt="Butik" />
+        <span>Butik</span>
+      </button>
+      <button onclick="showSection('profile')" data-section="profile">
+        <img src="./icons/profile.png" alt="Profil" />
+        <span>Profil</span>
+      </button>
     </div>
   </div>
 
@@ -268,47 +300,59 @@ p#status {
       loginPage.style.display = 'flex'
       showMessage('Du er logget ud.', true)
     }
-function showSection(section) {
-  pageContent.innerHTML = ''
 
-  // Remove active class from all bottom nav buttons
-  document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active'))
+    function showSection(section) {
+      pageContent.innerHTML = ''
 
-  // Add active class to the clicked section button
-  const btn = document.querySelector(`.bottom-nav button[onclick="showSection('${section}')"]`)
-  if (btn) btn.classList.add('active')
+      // Reset icons and active state
+      document.querySelectorAll('.bottom-nav button').forEach(btn => {
+        btn.classList.remove('active')
+        const icon = btn.querySelector('img')
+        const sec = btn.getAttribute('data-section')
+        icon.src = `./icons/${sec}.png`
+      })
 
-  if (section === 'store') {
-    pageContent.innerHTML = `
-      <div class="search-box">
-        <input type="text" placeholder="Søg efter produkter..." />
-      </div>
-      <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
-      <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
-      <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
-      <div class="product-card"><span>Vand</span><span>10 kr</span></div>
-    `
-  } else if (section === 'news') {
-    pageContent.innerHTML = `
-      <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
-      <div class="offer-card"><span>☕ Vi lancerer ny espresso!</span></div>
-    `
-  } else if (section === 'profile') {
-    pageContent.innerHTML = `
-      <div class="profile-info">
-        <h3>Din profil</h3>
-        <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
-        <p><strong>Loyalitetspoint:</strong> 120 point</p>
+      // Set active button
+      const activeBtn = document.querySelector(`.bottom-nav button[data-section="${section}"]`)
+      if (activeBtn) {
+        activeBtn.classList.add('active')
+        const icon = activeBtn.querySelector('img')
+        icon.src = `./icons/${section}-active.png`
+      }
 
-        <h4 style="margin-top:20px;color:#1e3a8a;">Tilbud</h4>
-        <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
-        <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
+      // Content switcher
+      if (section === 'store') {
+        pageContent.innerHTML = `
+          <div class="search-box">
+            <input type="text" placeholder="Søg efter produkter..." />
+          </div>
+          <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
+          <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
+          <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
+          <div class="product-card"><span>Vand</span><span>10 kr</span></div>
+        `
+      } else if (section === 'news') {
+        pageContent.innerHTML = `
+          <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
+          <div class="offer-card"><span>☕ Vi lancerer ny espresso!</span></div>
+        `
+      } else if (section === 'profile') {
+        pageContent.innerHTML = `
+          <div class="profile-info">
+            <h3>Din profil</h3>
+            <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+            <p><strong>Loyalitetspoint:</strong> 120 point</p>
 
-        <button class="logout-btn" onclick="logoutUser()">Log ud</button>
-      </div>
-    `
-  }
-}     
+            <h4 style="margin-top:20px;color:#1e3a8a;">Tilbud</h4>
+            <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
+            <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
+
+            <button class="logout-btn" onclick="logoutUser()">Log ud</button>
+          </div>
+        `
+      }
+    }
+
     window.signupUser = signupUser
     window.loginUser = loginUser
     window.logoutUser = logoutUser
