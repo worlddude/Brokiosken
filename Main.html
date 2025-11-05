@@ -225,24 +225,23 @@
   <!-- MAIN -->
   <div id="mainPage">
     <div class="header" id="pageTitle">Butik</div>
-
     <div class="content" id="pageContent"></div>
     <div class="bottom-nav">
-      <button onclick="showSection('news')">
-        <img src="/discount.png" alt="Nyheder" />
+      <button data-section="news" onclick="showSection('news')">
+        <img src="./icons/discount.png" alt="Nyheder" />
         <span>Nyheder</span>
       </button>
-      <button onclick="showSection('store')">
-        <img src="/shop.png" alt="Butik" />
+      <button data-section="store" onclick="showSection('store')">
+        <img src="./icons/shop.png" alt="Butik" />
         <span>Butik</span>
       </button>
-      <button onclick="showSection('profile')">
-        <img src="/user.png" alt="Profil" />
+
+      <button data-section="profile" onclick="showSection('profile')">
+        <img src="./icons/user.png" alt="Profil" />
         <span>Profil</span>
       </button>
-    </div>
-  </div>
 
+      
   <!-- SCRIPT -->
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
