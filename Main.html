@@ -17,48 +17,51 @@
       background-size: cover;
     }
 
+    /* MAIN WRAPPER */
+    .app-wrap {
+      width: 90%;
+      max-width: 400px;
+      height: 95vh;
+      background: rgba(255,255,255,0.9);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      display: flex;
+      flex-direction: column;
+    }
+
     /* LOGIN PAGE */
     .container {
-      width: 90%;
-      max-width: 360px;
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      padding: 40px 30px;
+      padding: 36px 28px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .container:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      height: 100%;
+      justify-content: center;
     }
 
     h1 {
       font-size: 28px;
       color: #1e3a8a;
-      margin-bottom: 30px;
+      margin-bottom: 18px;
     }
 
     input {
       width: 100%;
-      max-width: 280px;
+      max-width: 320px;
       padding: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       border: 1px solid #cbd5e1;
       border-radius: 10px;
       font-size: 16px;
       text-align: center;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.9);
     }
 
     button {
       width: 100%;
-      max-width: 280px;
+      max-width: 320px;
       padding: 12px;
       font-size: 16px;
       border: none;
@@ -67,181 +70,151 @@
       background-color: #bfdbfe;
       color: #1e3a8a;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       transition: background-color 0.2s;
     }
 
-    button:hover {
-      background-color: #93c5fd;
-    }
+    button:hover { background-color: #93c5fd; }
 
-    .divider {
-      margin: 15px 0;
-      color: #1e3a8a;
-    }
+    p#status { transition: opacity 0.4s; opacity: 0; font-size: 14px; font-weight: 500; margin-top: 12px; }
 
-    p#status {
-      transition: opacity 0.4s;
-      opacity: 0;
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 20px;
-    }
-
-    /* MAIN PAGE */
-    #mainPage {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 400px;
-      height: 100vh;
-      background: #f9fafb;
-    }
-
+    /* APP LAYOUT */
     .header {
-      display: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: linear-gradient(90deg,#eef2ff,#fff);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
     }
+
+    .header h2 { margin: 0; color: #1e3a8a; font-size: 18px; }
+
+    .header .right { display:flex; align-items:center; gap:12px; }
 
     .content {
-      flex-grow: 1;
-      width: 90%;
-      margin-top: 20px;
+      flex: 1;
+      padding: 14px;
       overflow-y: auto;
+      background: #f8fafc;
     }
+
+    .product-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 
     .product-card, .offer-card {
       background: #fff;
       border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      margin-bottom: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       display: flex;
-      justify-content: space-between;
+      gap: 12px;
       align-items: center;
     }
+
+    .product-card img { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; }
+    .product-info { flex: 1; display:flex; flex-direction:column; gap:6px; }
+    .product-actions { display:flex; align-items:center; gap:8px; }
+    .price { font-weight:700; color:#0f172a; }
+
+    .buy-btn { padding:8px 12px; border-radius:8px; border:none; cursor:pointer; background:#06b6d4; color:white; font-weight:700; }
 
     /* BOTTOM NAVIGATION */
     .bottom-nav {
       display: flex;
       justify-content: space-around;
       background: #e0e7ff;
-      padding: 10px 0;
+      padding: 8px 0;
       width: 100%;
-      border-radius: 20px 20px 0 0;
-      position: sticky;
-      bottom: 0;
+      border-radius: 0 0 18px 18px;
     }
 
-    .bottom-nav button {
-      background: none;
-      border: none;
-      color: #1e3a8a;
-      font-weight: 500;
-      font-size: 12px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      transition: background-color 0.2s;
-    }
+    .bottom-nav button { background:none; border:none; color:#1e3a8a; font-weight:500; font-size:12px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .bottom-nav button img { width:24px; height:24px; }
+    .bottom-nav button.active { background-color:#1e3a8a; color:#fff; padding:6px 10px; border-radius:10px; }
 
-    .bottom-nav button img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-      opacity: 0.85;
-      transition: opacity 0.2s, transform 0.2s;
-    }
+    /* SEARCH */
+    .search-box { width:100%; display:flex; justify-content:center; margin-bottom:12px; }
+    .search-box input { width:95%; padding:10px; border-radius:10px; border:1px solid #cbd5e1; text-align:center; }
 
-    .bottom-nav button.active {
-      background-color: #1e3a8a;
-      border-radius: 10px;
-      padding: 6px 10px;
-    }
+    /* CART */
+    .cart-btn { position: relative; border:none; background:none; cursor:pointer; }
+    .cart-count { position:absolute; top:-6px; right:-6px; background:#ef4444; color:white; font-size:12px; padding:2px 6px; border-radius:999px; }
 
-    .bottom-nav button.active img {
-      opacity: 1;
-      transform: scale(1.1);
-    }
+    .cart-drawer { position: fixed; right: 12px; bottom: 72px; width: 320px; max-width: calc(100% - 40px); background: #fff; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.2); overflow: hidden; z-index: 60; display: none; flex-direction: column; }
+    .cart-header { padding: 12px 14px; border-bottom: 1px solid rgba(0,0,0,0.06); display:flex; justify-content:space-between; align-items:center; }
+    .cart-list { max-height: 320px; overflow:auto; padding: 10px; display:flex; flex-direction:column; gap:8px; }
+    .cart-row { display:flex; gap:8px; align-items:center; }
+    .cart-row img { width:44px; height:44px; object-fit:cover; border-radius:6px; }
+    .cart-actions { padding:12px; border-top:1px solid rgba(0,0,0,0.06); display:flex; justify-content:space-between; align-items:center; }
+    .checkout-btn { padding:8px 12px; border-radius:8px; border:none; cursor:pointer; background:#10b981; color:white; font-weight:700; }
 
-    .bottom-nav button.active span {
-      color: #f9fafb;
-    }
-
-    /* PROFILE PAGE */
-    .profile-info {
-      text-align: center;
-    }
-
-    .profile-info h3 {
-      color: #1e3a8a;
-    }
-
-    .profile-info p {
-      color: #475569;
-      font-size: 15px;
-      margin: 5px 0;
-    }
-
-    .logout-btn {
-      background-color: #fca5a5;
-      color: #991b1b;
-      width: 80%;
-      margin-top: 15px;
-    }
-
-    /* SEARCH FIELD */
-    .search-box {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .search-box input {
-      width: 90%;
-      padding: 10px;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      text-align: center;
-    }
+    /* small screens tweaks */
+    @media (max-width:420px){ .cart-drawer{ right:8px; left:8px; width:auto; } }
   </style>
 </head>
 <body>
 
   <!-- LOGIN -->
-  <div class="container" id="loginPage">
-    <h1>Brokiosken</h1>
-    <input type="email" id="email" placeholder="Email" />
-    <input type="password" id="password" placeholder="Adgangskode" />
-    <button onclick="loginUser()">Log ind</button>
-    <div class="divider">eller</div>
-    <button onclick="signupUser()">Opret bruger</button>
-    <p id="status"></p>
+  <div class="app-wrap" id="app">
+
+    <div class="container" id="loginPage">
+      <h1>Brokiosken</h1>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Adgangskode" />
+      <button onclick="signupUser()">Opret bruger</button>
+      <button onclick="loginUser()">Log ind</button>
+      <p id="status"></p>
+    </div>
+
+    <!-- MAIN -->
+    <div id="mainPage" style="display:none; height:100%; flex-direction:column;">
+      <div class="header">
+        <h2 id="pageTitle">Butik</h2>
+        <div class="right">
+          <button class="cart-btn" id="cartToggle" title="Vis kurv" onclick="toggleCart()">
+            <img src="./icons/cart.png" alt="Kurv" style="width:24px;height:24px;" />
+            <span class="cart-count" id="cartCount" style="display:none">0</span>
+          </button>
+          <div style="width:8px"></div>
+          <button onclick="showSection('profile')" title="Profil" style="border:none;background:none;cursor:pointer;"><img src="./icons/user.png" style="width:24px;height:24px;"/></button>
+        </div>
+      </div>
+
+      <div class="content" id="pageContent"></div>
+
+      <div class="bottom-nav">
+        <button data-section="news" onclick="showSection('news')">
+          <img src="./icons/discount.png" alt="Nyheder" />
+          <span>Nyheder</span>
+        </button>
+        <button data-section="store" onclick="showSection('store')">
+          <img src="./icons/shop.png" alt="Butik" />
+          <span>Butik</span>
+        </button>
+        <button data-section="profile" onclick="showSection('profile')">
+          <img src="./icons/user.png" alt="Profil" />
+          <span>Profil</span>
+        </button>
+      </div>
+
+      <!-- CART DRAWER -->
+      <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+          <strong>Din kurv</strong>
+          <button onclick="closeCart()" style="border:none;background:none;cursor:pointer;font-weight:700">✕</button>
+        </div>
+        <div class="cart-list" id="cartList"></div>
+        <div class="cart-actions">
+          <div><strong>Total:</strong> <span id="cartTotal">0 kr</span></div>
+          <div>
+            <button class="checkout-btn" onclick="checkout()">Køb</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- MAIN -->
-  <div id="mainPage">
-    <div class="header" id="pageTitle">Butik</div>
-    <div class="content" id="pageContent"></div>
-    <div class="bottom-nav">
-      <button data-section="news" onclick="showSection('news')">
-        <img src="./icons/discount.png" alt="Nyheder" />
-        <span>Nyheder</span>
-      </button>
-      <button data-section="store" onclick="showSection('store')">
-        <img src="./icons/shop.png" alt="Butik" />
-        <span>Butik</span>
-      </button>
-
-      <button data-section="profile" onclick="showSection('profile')">
-        <img src="./icons/user.png" alt="Profil" />
-        <span>Profil</span>
-      </button>
-
-      
   <!-- SCRIPT -->
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
@@ -255,6 +228,8 @@
     const mainPage = document.getElementById('mainPage')
     const pageContent = document.getElementById('pageContent')
     const pageTitle = document.getElementById('pageTitle')
+    const cartCountEl = document.getElementById('cartCount')
+    const cartDrawer = document.getElementById('cartDrawer')
 
     function showMessage(text, success = true) {
       status.textContent = text
@@ -263,6 +238,7 @@
       setTimeout(() => (status.style.opacity = '0'), 4000)
     }
 
+    // ---------- AUTH ----------
     async function signupUser() {
       const email = document.getElementById('email').value.trim()
       const password = document.getElementById('password').value.trim()
@@ -288,7 +264,7 @@
           loginPage.style.display = 'none'
           mainPage.style.display = 'flex'
           showSection('store')
-        }, 800)
+        }, 600)
       }
     }
 
@@ -299,62 +275,220 @@
       showMessage('Du er logget ud.', true)
     }
 
-    function showSection(section) {
+    // ---------- CART ----------
+    function getCart() {
+      try { return JSON.parse(localStorage.getItem('brokiosken_cart') || '[]') } catch(e){ return [] }
+    }
+    function saveCart(cart){ localStorage.setItem('brokiosken_cart', JSON.stringify(cart)); renderCartCount(); }
+
+    function addToCart(product){
+      const cart = getCart()
+      const found = cart.find(i => i.id === product.id)
+      if(found) found.qty = (found.qty || 1) + 1
+      else cart.push(Object.assign({}, product, { qty: 1 }))
+      saveCart(cart)
+      showMessage('✅ Tilføjet til kurven', true)
+    }
+
+    function removeFromCart(productId){
+      let cart = getCart().filter(i => i.id !== productId)
+      saveCart(cart)
+      renderCart()
+    }
+
+    function renderCartCount(){
+      const cart = getCart()
+      const totalQty = cart.reduce((s,i) => s + (i.qty||0), 0)
+      if(totalQty>0){ cartCountEl.style.display='inline-block'; cartCountEl.textContent = totalQty }
+      else { cartCountEl.style.display='none' }
+    }
+
+    function toggleCart(){ if(cartDrawer.style.display === 'flex') closeCart(); else openCart(); }
+    function openCart(){ renderCart(); cartDrawer.style.display = 'flex' }
+    function closeCart(){ cartDrawer.style.display = 'none' }
+
+    function renderCart(){
+      const cartList = document.getElementById('cartList')
+      const cart = getCart()
+      cartList.innerHTML = ''
+      let total = 0
+      cart.forEach(item => {
+        total += (item.price || 0) * (item.qty || 1)
+        const row = document.createElement('div')
+        row.className = 'cart-row'
+        row.innerHTML = `
+          <img src="${item.image_url || './icons/placeholder.png'}" alt="${item.name}" />
+          <div style="flex:1">
+            <div style="font-weight:700">${item.name}</div>
+            <div style="font-size:13px">${item.qty} × ${item.price} kr</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <button style="border:none;background:none;cursor:pointer;color:#ef4444;font-weight:700" onclick="removeFromCart(${item.id})">Fjern</button>
+          </div>
+        `
+        cartList.appendChild(row)
+      })
+      document.getElementById('cartTotal').textContent = `${total} kr`
+      renderCartCount()
+    }
+
+    function checkout(){
+      const cart = getCart()
+      if(!cart.length) return showMessage('Din kurv er tom', false)
+      // Placeholder: here you'd call your payments or orders API
+      localStorage.removeItem('brokiosken_cart')
+      renderCartCount()
+      renderCart()
+      showMessage('Tak! Din ordre er modtaget (demo).', true)
+      closeCart()
+    }
+
+    // ---------- UI & DATA ----------
+    // helper to resolve image url; supports full url or a path stored in Supabase storage bucket 'product-images'
+    async function resolveImageUrl(imageField){
+      if(!imageField) return './icons/placeholder.png'
+      if(imageField.startsWith('http')) return imageField
+      try {
+        // assume path in storage bucket 'product-images'
+        const { data } = supabase.storage.from('product-images').getPublicUrl(imageField)
+        if(data && data.publicUrl) return data.publicUrl
+      } catch(e){}
+      return imageField
+    }
+
+    async function fetchProducts(){
+      // Expecting table 'products' with columns: id, name, price, image_url (or image_path)
+      const { data, error } = await supabase.from('products').select('id,name,price,image_url')
+      if(error){ console.error('Products fetch error', error); return [] }
+      return data || []
+    }
+
+    async function fetchOffers(){
+      // Try to get offers from table 'offers' (id, title, description)
+      const { data, error } = await supabase.from('offers').select('id,title,description')
+      if(error || !data) return [
+        { id: 1, title: '🎉 2x Kaffe To Go - kun 40 kr!', description: '' },
+        { id: 2, title: '🥪 Ny sandwich: Kylling & Bacon', description: '' }
+      ]
+      return data
+    }
+
+    // Render helpers
+    function renderProductsList(products){
+      const grid = document.createElement('div')
+      grid.className = 'product-grid'
+
+      products.forEach(p => {
+        const card = document.createElement('div')
+        card.className = 'product-card'
+        const imgSrc = p.image_url || './icons/placeholder.png'
+        card.innerHTML = `
+          <img src="${imgSrc}" alt="${p.name}" />
+          <div class="product-info">
+            <div style="font-weight:700">${p.name}</div>
+            <div style="color:#64748b;font-size:13px">Produkt-id: ${p.id}</div>
+          </div>
+          <div class="product-actions">
+            <div class="price">${p.price} kr</div>
+            <button class="buy-btn" onclick='addToCart(${JSON.stringify(p).replace(/'/g,"\\'")})'>Køb</button>
+          </div>
+        `
+        grid.appendChild(card)
+      })
+      return grid
+    }
+
+    async function showSection(section){
+      // Note: this function is called from HTML onclick - it may be async.
       pageContent.innerHTML = ''
 
-      // Reset icons and active state
-      document.querySelectorAll('.bottom-nav button').forEach(btn => {
-        btn.classList.remove('active')
-        const icon = btn.querySelector('img')
-        const sec = btn.getAttribute('data-section')
-        icon.src = `./icons/${sec}.png`
-      })
-
-      // Set active button
+      // Reset bottom nav active state
+      document.querySelectorAll('.bottom-nav button').forEach(btn => btn.classList.remove('active'))
       const activeBtn = document.querySelector(`.bottom-nav button[data-section="${section}"]`)
-      if (activeBtn) {
-        activeBtn.classList.add('active')
-        const icon = activeBtn.querySelector('img')
-        icon.src = `./icons/${section}-active.png`
-      }
+      if(activeBtn) activeBtn.classList.add('active')
 
-      // Content switcher
-      if (section === 'store') {
-        pageContent.innerHTML = `
-          <div class="search-box">
-            <input type="text" placeholder="Søg efter produkter..." />
-          </div>
-          <div class="product-card"><span>Kaffe To Go</span><span>25 kr</span></div>
-          <div class="product-card"><span>Sandwich</span><span>40 kr</span></div>
-          <div class="product-card"><span>Chokoladebar</span><span>15 kr</span></div>
-          <div class="product-card"><span>Vand</span><span>10 kr</span></div>
-        `
-      } else if (section === 'news') {
-        pageContent.innerHTML = `
-          <div class="offer-card"><span>📰 Nyhed: Vi åbner kl. 6 hver dag!</span></div>
-          <div class="offer-card"><span>☕ Vi lancerer ny espresso!</span></div>
-        `
-      } else if (section === 'profile') {
-        pageContent.innerHTML = `
-          <div class="profile-info">
-            <h3>Din profil</h3>
-            <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+      if(section === 'store'){
+        pageTitle.textContent = 'Butik'
+
+        const searchWrap = document.createElement('div')
+        searchWrap.className = 'search-box'
+        searchWrap.innerHTML = `<input type='text' id='productSearch' placeholder='Søg efter produkter...' />`
+        pageContent.appendChild(searchWrap)
+
+        const products = await fetchProducts()
+
+        // resolve image urls in parallel and normalize price
+        await Promise.all(products.map(async p => {
+          if(p.image_url && !p.image_url.startsWith('http')){
+            p.image_url = await resolveImageUrl(p.image_url)
+          }
+          p.price = Number(p.price) || 0
+        }))
+
+        const grid = renderProductsList(products)
+        pageContent.appendChild(grid)
+
+        // search/filter
+        const searchInput = document.getElementById('productSearch')
+        searchInput.addEventListener('input', (e) => {
+          const q = e.target.value.toLowerCase().trim()
+          const filtered = products.filter(p => p.name.toLowerCase().includes(q))
+          const newGrid = renderProductsList(filtered)
+          // replace old grid
+          const oldGrid = pageContent.querySelector('.product-grid')
+          if(oldGrid) oldGrid.replaceWith(newGrid)
+        })
+
+      } else if(section === 'news'){
+        pageTitle.textContent = 'Nyheder'
+        const offers = await fetchOffers()
+        const container = document.createElement('div')
+        container.style.display = 'flex'
+        container.style.flexDirection = 'column'
+        container.style.gap = '10px'
+
+        offers.forEach(o => {
+          const card = document.createElement('div')
+          card.className = 'offer-card'
+          card.innerHTML = `<div style="font-weight:700">${o.title || o.name}</div><div style="color:#475569;font-size:13px">${o.description || ''}</div>`
+          container.appendChild(card)
+        })
+        pageContent.appendChild(container)
+
+      } else if(section === 'profile'){
+        pageTitle.textContent = 'Profil'
+        const user = supabase.auth.getUser ? (await supabase.auth.getUser()).data.user : null
+        const email = (user && user.email) || document.getElementById('email').value || ''
+        const profileWrap = document.createElement('div')
+        profileWrap.innerHTML = `
+          <div style="padding:8px">
+            <h3 style="color:#1e3a8a;">Din profil</h3>
+            <p><strong>Email:</strong> ${email}</p>
             <p><strong>Loyalitetspoint:</strong> 120 point</p>
-
-            <h4 style="margin-top:20px;color:#1e3a8a;">Tilbud</h4>
-            <div class="offer-card"><span>🎉 2x Kaffe To Go - kun 40 kr!</span></div>
-            <div class="offer-card"><span>🥪 Ny sandwich: Kylling & Bacon</span></div>
-
             <button class="logout-btn" onclick="logoutUser()">Log ud</button>
           </div>
         `
+        pageContent.appendChild(profileWrap)
       }
     }
 
+    // expose functions to window
     window.signupUser = signupUser
     window.loginUser = loginUser
     window.logoutUser = logoutUser
     window.showSection = showSection
+    window.addToCart = addToCart
+    window.toggleCart = toggleCart
+    window.openCart = openCart
+    window.closeCart = closeCart
+    window.removeFromCart = removeFromCart
+    window.checkout = checkout
+
+    // initialize
+    (function init(){
+      renderCartCount()
+    })()
+
   </script>
 </body>
 </html>
