@@ -499,7 +499,7 @@
         await Promise.all(products.map(async p=>{
           if(p.image_url && !p.image_url.startsWith('http')) p.image_url = await resolveImageUrl(p.image_url);
           p.price = Number(p.price)||0;
-          p.id = (p.id!=null) ? p.id : Math.random().toString(36).slice(2,9);
+          /*p.id = (p.id!=null) ? p.id : Math.random().toString(36).slice(2,9);*/
           p.name = p.name || `Produkt ${p.id}`;
         }));
 
