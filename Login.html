@@ -165,7 +165,7 @@
   <div class="login-container">
     <div class="logo">BK</div>
     <h1>Brokiosken</h1>
-    <p class="subtle">Velkommen tilbage!<br>Log ind for at fortsætte til butikken.</p>
+    <p class="subtle">Velkommen!<br>Log ind for at fortsætte til butikken.</p>
 
     <input type="email" id="email" placeholder="Email" autocomplete="email" />
     <input type="password" id="password" placeholder="Adgangskode" autocomplete="current-password" />
@@ -217,7 +217,7 @@
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if(error) return showMessage('Fejl: ' + error.message, false);
       showMessage('✅ Logget ind! Sender dig videre...', true);
-      setTimeout(()=> window.location.href = MAIN_APP_URL, 1500);
+      setTimeout(()=> window.location.href = https://worlddude.github.io/Brokiosken/Main.html, 1500);
     }
   </script>
 </body>
