@@ -188,7 +188,7 @@
     );
 
     /* === PLACEHOLDER: Change this to your main app URL === */
-    const MAIN_APP_URL = "https://your-main-site-url.com/main.html";
+    const MAIN_APP_URL = "https://worlddude.github.io/Brokiosken/Main.html";
     // Example: const MAIN_APP_URL = "/main.html";
 
     /* === UI helpers === */
@@ -217,7 +217,7 @@
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if(error) return showMessage('Fejl: ' + error.message, false);
       showMessage('✅ Logget ind! Sender dig videre...', true);
-      setTimeout(()=> window.location.href = https://worlddude.github.io/Brokiosken/Main.html, 1500);
+      setTimeout(()=> window.location.href = MAIN_APP_URL, 1500);
     }
   </script>
 </body>
