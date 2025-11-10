@@ -207,7 +207,7 @@
       if(!email || !password) return showMessage('Udfyld email og adgangskode.', false);
       const { error } = await supabase.auth.signUp({ email, password });
       if(error) showMessage('Fejl: ' + error.message, false);
-      else showMessage('✅ Konto oprettet! Tjek din email for bekræftelse.', true);
+      else showMessage('✅ Konto oprettet! Tryk login for at komme til siden.', true);
     }
 
     async function loginUser(){
