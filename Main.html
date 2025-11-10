@@ -3,304 +3,318 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brokiosken App</title>
-
+  <title>Brokiosken – App</title>
   <style>
-    /* ---------------- Global ---------------- */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    :root{
-      --bg: #f3f6fb;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
+    :root {
+      --bg: #f1f5f9;
+      --card: #fff;
       --brand1: #2563eb;
       --brand2: #3b82f6;
-      --accent1:#06b6d4;
-      --accent2:#0ea5e9;
-      --success1:#10b981; --success2:#22c55e;
-      --danger:#ef4444;
-      --ring: rgba(37,99,235,.25);
-      --border:#e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --accent1: #06b6d4;
+      --accent2: #0ea5e9;
+      --success1:#10b981;
+      --success2:#22c55e;
       --shadow: 0 10px 40px rgba(0,0,0,.12);
-      --radius: 24px;
-    }
-    body.dark{
-      --bg: #0b1220;
-      --card: #111827;
-      --text: #e5e7eb;
-      --muted: #cbd5e1;
-      --brand1: #1e40af;
-      --brand2: #2563eb;
-      --accent1:#0ea5e9;
-      --accent2:#38bdf8;
-      --success1:#10b981; --success2:#34d399;
-      --danger:#f87171;
-      --ring: rgba(59,130,246,.3);
-      --border:#243148;
-      --shadow: 0 10px 40px rgba(0,0,0,.45);
+      --radius: 22px;
     }
     body {
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       margin: 0;
-      display: flex; justify-content: center; align-items: center;
-      height: 100vh;
-      background: linear-gradient(145deg, #eaf2ff, #f1f5f9);
-      transition: background .35s ease;
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
       color: var(--text);
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh;
     }
-    body.dark { background: linear-gradient(160deg, #0b1220, #0f172a); }
-
-    /* ---------------- Shell ---------------- */
-    .app-wrap{
-      width: 92%;
+    .app-wrap {
+      width: 95%;
       max-width: 430px;
       height: 95vh;
       background: var(--card);
       border-radius: var(--radius);
-      overflow: hidden;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       box-shadow: var(--shadow);
-      transition: background .3s,color .3s, box-shadow .3s;
     }
 
-    /* ---------------- Login ---------------- */
-    .container{
-      padding: 36px 24px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align:center; height:100%;
-      background: linear-gradient(160deg, #eff6ff 0%, #f9fafb 100%);
-    }
-    body.dark .container{ background: linear-gradient(160deg, #0f172a, #0b1220); }
-
-    .brandlockup{
-      display:flex; align-items:center; gap:12px; margin-bottom: 16px;
-    }
-    .logo{
-      width:42px; height:42px; border-radius: 12px; display:inline-grid; place-items:center;
-      background: radial-gradient(65% 65% at 30% 30%, #60a5fa, #2563eb);
-      color:white; font-weight:900; letter-spacing:.5px; font-size:18px;
-      box-shadow: 0 8px 18px rgba(37,99,235,.35);
-    }
-    h1{ margin:0; font-size: 28px; font-weight: 800; color: var(--brand2); }
-    body.dark h1{ color:#93c5fd; }
-
-    .subtle{ color: var(--muted); font-size:14px; margin-bottom: 16px; }
-
-    input{
-      width:100%; max-width:320px;
-      padding: 14px 14px;
-      border:1px solid var(--border);
-      border-radius: 14px;
-      background: #f8fafc;
-      font-size: 16px;
-      margin-bottom: 12px;
-      transition: box-shadow .2s, border-color .2s, background .2s, color .2s;
-      color: var(--text);
-    }
-    body.dark input{ background:#0f172a; border-color:#1f2a44; }
-    input:focus{ outline:none; border-color: var(--brand2); box-shadow: 0 0 0 3px var(--ring); }
-
-    .btn{
-      width:100%; max-width:320px; padding: 13px;
-      border:none; border-radius: 12px; color:white;
+    /* Header */
+    .header {
       background: linear-gradient(90deg, var(--brand1), var(--brand2));
-      font-weight: 700; cursor:pointer;
-      transition: transform .12s, box-shadow .12s, filter .2s;
-    }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 14px rgba(37,99,235,.3); }
-    .btn.secondary{ background: linear-gradient(90deg, var(--accent1), var(--accent2)); }
-    .btn.danger{ background: linear-gradient(90deg, var(--danger), #fb7185); }
-
-    #status{ opacity:0; transition: opacity .3s; font-size: 14px; font-weight:500; margin-top: 8px; }
-
-    /* ---------------- Header ---------------- */
-    .header{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 12px 16px;
-      background: linear-gradient(90deg, var(--brand1), var(--brand2));
-      color:white;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
       box-shadow: 0 2px 10px rgba(0,0,0,.12);
     }
-    .header-title{ display:flex; align-items:center; gap:10px; }
-    .header .mark{ width:28px; height:28px; border-radius:8px; display:grid; place-items:center; background:rgba(255,255,255,.2); font-weight:900; }
+    .header h2 { margin: 0; font-weight: 700; }
 
-    .iconbtn{
-      border:none; background: transparent; color:inherit; cursor:pointer; padding:6px; position:relative;
-    }
-    .badge{
-      position:absolute; top:-4px; right:-4px;
-      background:#ef4444; color:white; font-size:11px; padding:2px 6px; border-radius:999px;
-      display:none;
+    /* Content */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      background: var(--bg);
+      animation: fadeIn .25s ease;
     }
 
-    .content{ flex:1; overflow-y:auto; padding: 14px; background: var(--bg); animation: fadeIn .25s ease; }
-
-    .product-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-    .product-card, .offer-card{
-      background: var(--card); border-radius: 18px; padding: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.06);
-      display:flex; flex-direction:column; align-items:center;
-      transition: transform .12s, box-shadow .2s, background .3s, color .3s;
+    .section-row {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom: 8px;
     }
-    .product-card:hover, .offer-card:hover{ transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,.10); }
-    .product-card img, .offer-card img{
-      width:100%; height: 120px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; background:#e5e7eb;
-    }
-    .product-info{ text-align:center; flex:1; }
-    .price{ font-weight:800; color:var(--text); }
+    .section-row h3 { margin:0; color: var(--brand1); font-weight:700; }
 
-    .buy-btn{
-      margin-top:8px; width:100%;
+    .product-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+      gap:14px;
+    }
+
+    .product-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      transition:transform .15s, box-shadow .2s;
+    }
+    .product-card:hover {
+      transform:translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.12);
+    }
+    .product-card img {
+      width:100%;
+      height:120px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:8px;
+    }
+    .product-info { text-align:center; flex:1; }
+    .price { font-weight:700; margin:4px 0; }
+    .buy-btn {
+      border:none; border-radius:10px;
       background: linear-gradient(90deg, var(--accent1), var(--accent2));
-      border:none; border-radius: 10px; color:white; font-weight:700; padding:8px 12px; cursor:pointer;
-      transition: transform .12s, box-shadow .12s;
+      color:white; font-weight:700;
+      padding:8px 12px;
+      width:100%;
+      cursor:pointer;
+      transition:transform .15s;
     }
-    .buy-btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 12px rgba(6,182,212,.28); }
+    .buy-btn:hover { transform:translateY(-1px); }
 
-    .search-box{ width:100%; display:flex; justify-content:center; margin-bottom: 12px; }
-    .search-box input{
-      width:95%; padding: 12px 14px; border-radius: 12px; border:1px solid var(--border); background: var(--card);
+    /* Bottom nav */
+    .bottom-nav {
+      display:flex;
+      justify-content:space-around;
+      background: #f8fafc;
+      border-top:1px solid var(--border);
+      padding:8px 0;
+    }
+    .bottom-nav button {
+      background:none; border:none;
+      font-size:12px; color: var(--muted);
+      display:flex; flex-direction:column; align-items:center;
+      cursor:pointer; gap:4px;
+    }
+    .bottom-nav button.active {
+      color: var(--brand1);
+      font-weight:700;
     }
 
-    .section-row{ display:flex; align-items:center; justify-content:space-between; margin: 8px 2px 6px; }
-    .section-row h3{ margin:0; font-size:16px; font-weight:800; color: var(--brand2); }
+    /* Animations */
+    @keyframes fadeIn {
+      from{opacity:0;transform:translateY(5px);}
+      to{opacity:1;transform:translateY(0);}
+    }
 
-    .bottom-nav{
-      display:flex; justify-content:space-around; gap:2px;
-      background: linear-gradient(0deg, rgba(0,0,0,.04), rgba(0,0,0,0));
-      padding: 8px 0; border-top:1px solid var(--border);
-      backdrop-filter: blur(6px);
+    /* Cart drawer */
+    .cart-drawer {
+      position:fixed;
+      bottom:70px; right:12px;
+      width:320px; max-width:calc(100% - 40px);
+      background:var(--card);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      display:none;
+      flex-direction:column;
+      animation:fadeIn .25s ease;
+      overflow:hidden;
     }
-    .bottom-nav button{
-      background:none; border:none; color: var(--muted);
-      font-weight:600; font-size: 12px; cursor:pointer;
-      display:flex; flex-direction:column; align-items:center; gap:4px;
-      padding: 6px 10px; border-radius: 10px;
-      transition: color .2s, transform .12s, background .2s;
+    .cart-header, .cart-actions {
+      padding:12px 14px;
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:1px solid var(--border);
     }
-    .bottom-nav button.active{
-      color: white; transform: translateY(-1px);
-      background: linear-gradient(90deg, var(--brand1), var(--brand2));
-      box-shadow: 0 6px 18px rgba(37,99,235,.25);
+    .cart-actions {
+      border-top:1px solid var(--border);
+      border-bottom:none;
     }
-    .nav-ico{ width:24px; height:24px; display:grid; place-items:center; }
-
-    .cart-drawer{ position:fixed; right:12px; bottom:72px; width: 320px; max-width: calc(100% - 40px);
-      background: var(--card); border-radius: 16px; box-shadow: var(--shadow); overflow:hidden; z-index:60;
-      display:none; flex-direction: column; animation: slideUp .22s ease-out; }
-    .cart-header, .cart-actions{
-      padding: 12px 14px; background: linear-gradient(0deg, rgba(0,0,0,.03), rgba(0,0,0,0));
-      border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between;
+    .cart-list {
+      padding:10px;
+      max-height:260px;
+      overflow:auto;
+      display:flex; flex-direction:column; gap:8px;
     }
-    .cart-actions{ border-top:1px solid var(--border); border-bottom:none; }
-    .cart-list{ max-height: 320px; overflow:auto; padding: 10px; display:flex; flex-direction:column; gap:8px; }
-    .cart-row{ display:flex; gap:10px; align-items:center; }
-    .cart-row img{ width:44px; height:44px; object-fit:cover; border-radius: 8px; }
-
-    .checkout-btn{
-      padding: 8px 12px; border:none; border-radius: 10px; cursor:pointer;
+    .cart-row { display:flex; align-items:center; gap:8px; }
+    .cart-row img { width:44px; height:44px; border-radius:8px; object-fit:cover; }
+    .checkout-btn {
+      padding:8px 12px; border:none; border-radius:8px;
       background: linear-gradient(90deg, var(--success1), var(--success2));
-      color:white; font-weight:800; transition: transform .12s, box-shadow .12s;
+      color:white; font-weight:700; cursor:pointer;
     }
-
-    .dialog-backdrop{ position:fixed; inset:0; background: rgba(0,0,0,.35); display:none; place-items:center; z-index:70; }
-    .dialog{ width: min(92vw, 380px); background: var(--card); color: var(--text); border-radius: 16px; box-shadow: var(--shadow); padding: 16px; }
-    .dialog h4{ margin: 0 0 6px; }
-    .dialog-actions{ display:flex; gap:8px; justify-content:flex-end; margin-top: 10px; }
-
-    @keyframes slideUp{ from{ transform:translateY(16px); opacity:.0 } to{ transform:translateY(0); opacity:1 } }
-    @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
   </style>
 </head>
 <body>
-
   <div class="app-wrap" id="app">
-    <!-- LOGIN -->
-    <div class="container" id="loginPage">
-      <div class="brandlockup">
-        <div class="logo">BK</div>
-        <div>
-          <h1>Brokiosken</h1>
-          <div class="subtle">Log ind eller opret bruger</div>
-        </div>
-      </div>
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Adgangskode" />
-      <button class="btn" onclick="signupUser()">Opret bruger</button>
-      <button class="btn secondary" onclick="loginUser()">Log ind</button>
-      <p id="status"></p>
+    <div class="header">
+      <h2 id="pageTitle">Butik</h2>
+      <button id="cartToggle" style="background:none;border:none;color:white;cursor:pointer;">🛒</button>
     </div>
 
-    <!-- MAIN APP -->
-    <div id="mainPage" style="display:none; height:100%; flex-direction:column;">
-      <div class="header">
-        <div class="header-title">
-          <div class="mark">BK</div>
-          <div>
-            <div style="font-weight:800; line-height:1;">Brokiosken</div>
-            <small style="opacity:.9">Velkommen!</small>
-          </div>
-        </div>
-        <div class="right" style="display:flex; align-items:center; gap:6px;">
-          <button class="iconbtn" id="cartToggle" title="Vis kurv" onclick="toggleCart()">
-            <span class="badge" id="cartCount">0</span>
-            <div class="nav-ico">
-              🛒
-            </div>
-          </button>
-        </div>
+    <div class="content" id="pageContent"></div>
+
+    <div class="bottom-nav">
+      <button data-section="news" onclick="showSection('news')">📰<span>Nyheder</span></button>
+      <button data-section="store" class="active" onclick="showSection('store')">🏪<span>Butik</span></button>
+      <button data-section="profile" onclick="showSection('profile')">👤<span>Profil</span></button>
+    </div>
+
+    <!-- Cart drawer -->
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-header">
+        <strong>Din kurv</strong>
+        <button onclick="closeCart()" style="border:none;background:none;cursor:pointer;">✕</button>
       </div>
-
-      <div class="content" id="pageContent"></div>
-
-      <div class="bottom-nav">
-        <button data-section="news" onclick="showSection('news')">📰<span>Nyheder</span></button>
-        <button data-section="store" onclick="showSection('store')" class="active">🏪<span>Butik</span></button>
-        <button data-section="profile" onclick="showSection('profile')">👤<span>Profil</span></button>
-      </div>
-
-      <!-- CART DRAWER -->
-      <div class="cart-drawer" id="cartDrawer">
-        <div class="cart-header">
-          <strong>Din kurv</strong>
-          <button class="iconbtn" onclick="closeCart()">✕</button>
-        </div>
-        <div class="cart-list" id="cartList"></div>
-        <div class="cart-actions">
-          <div><strong>Total:</strong> <span id="cartTotal">0 kr</span></div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn tiny ghost" onclick="clearCart()">Tøm</button>
-            <button class="checkout-btn" onclick="checkout()">Køb</button>
-          </div>
-        </div>
+      <div class="cart-list" id="cartList"></div>
+      <div class="cart-actions">
+        <div><strong>Total:</strong> <span id="cartTotal">0 kr</span></div>
+        <button class="checkout-btn" onclick="checkout()">Køb</button>
       </div>
     </div>
   </div>
 
-  <div class="dialog-backdrop" id="dialogBackdrop">
-    <div class="dialog" id="dialogBox">
-      <h4 id="dialogTitle">Bekræft</h4>
-      <div id="dialogBody" class="subtle">Er du sikker?</div>
-      <div class="dialog-actions">
-        <button class="btn tiny ghost" id="dialogCancel">Annuller</button>
-        <button class="btn tiny danger" id="dialogConfirm">Bekræft</button>
-      </div>
-    </div>
-  </div>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-  <!-- ✅ FIXED Supabase Include -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabase = window.supabase.createClient(
-      "https://olfvimlmyqtadzkwiibg.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZnZpbWxteXF0YWR6a3dpaWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDgyNTcsImV4cCI6MjA3NzcyNDI1N30.KgNwLHO7fDH1YCRb5cEc9Yo-mSNtae83B783o-0Hqr4"
+    /* === Supabase Setup === */
+    const supabase = createClient(
+      'https://olfvimlmyqtadzkwiibg.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZnZpbWxteXF0YWR6a3dpaWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDgyNTcsImV4cCI6MjA3NzcyNDI1N30.KgNwLHO7fDH1YCRb5cEc9Yo-mSNtae83B783o-0Hqr4'
     );
 
-    /* --- All app logic identical to your long version --- */
-    /* Works offline + online exactly as before */
-  </script>
+    const LOGIN_PAGE_URL = "https://worlddude.github.io/Brokiosken/Login.html"; // 🔹 Replace this with your login page address
 
-  <!-- You can paste back the JS logic here (same 800 lines, unchanged) -->
+    /* === Redirect if not logged in === */
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      window.location.href = LOGIN_PAGE_URL;
+    }
+
+    /* === Elements === */
+    const pageContent = document.getElementById("pageContent");
+    const cartDrawer = document.getElementById("cartDrawer");
+    const cartList = document.getElementById("cartList");
+    const cartTotal = document.getElementById("cartTotal");
+    const cartToggle = document.getElementById("cartToggle");
+
+    /* === Cart handling === */
+    function getCart() { return JSON.parse(localStorage.getItem("cart") || "[]"); }
+    function saveCart(c) { localStorage.setItem("cart", JSON.stringify(c)); renderCart(); }
+    function addToCart(p) {
+      const cart = getCart();
+      const found = cart.find(i => i.id === p.id);
+      if (found) found.qty++; else cart.push({...p, qty:1});
+      saveCart(cart);
+    }
+    function renderCart() {
+      const cart = getCart();
+      cartList.innerHTML = "";
+      let total = 0;
+      cart.forEach(i=>{
+        total += i.price * i.qty;
+        const row = document.createElement("div");
+        row.className="cart-row";
+        row.innerHTML = \`
+          <img src="\${i.image_url||'https://via.placeholder.com/60'}" />
+          <div style="flex:1;">
+            <div style="font-weight:700;">\${i.name}</div>
+            <small>\${i.qty} × \${i.price} kr</small>
+          </div>
+          <button onclick="removeFromCart('\${i.id}')" style="border:none;background:none;color:red;cursor:pointer;">🗑️</button>
+        \`;
+        cartList.appendChild(row);
+      });
+      cartTotal.textContent = total + " kr";
+    }
+    window.removeFromCart = (id)=>{
+      const cart = getCart().filter(i=>i.id!==id);
+      saveCart(cart);
+    };
+    window.checkout = ()=>{
+      alert("Tak for dit køb! (demo)");
+      localStorage.removeItem("cart");
+      renderCart();
+    };
+    window.closeCart = ()=>cartDrawer.style.display="none";
+    cartToggle.onclick = ()=>cartDrawer.style.display = cartDrawer.style.display==="flex" ? "none":"flex";
+
+    /* === Pages === */
+    async function showSection(section) {
+      document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));
+      document.querySelector(\`[data-section="\${section}"]\`).classList.add("active");
+      pageContent.innerHTML = "";
+
+      if(section==="store"){
+        document.getElementById("pageTitle").textContent="Butik";
+        const { data: products } = await supabase.from("products").select("id,name,price,image_url");
+        const grid = document.createElement("div"); grid.className="product-grid";
+        (products||[]).forEach(p=>{
+          const card=document.createElement("div"); card.className="product-card";
+          card.innerHTML=\`
+            <img src="\${p.image_url||'https://via.placeholder.com/150'}" alt="\${p.name}">
+            <div class="product-info">
+              <div style="font-weight:700;">\${p.name}</div>
+              <div class="price">\${p.price} kr</div>
+            </div>
+            <button class="buy-btn" onclick='addToCart(\${JSON.stringify(p)})'>Tilføj</button>
+          \`;
+          grid.appendChild(card);
+        });
+        pageContent.appendChild(grid);
+      }
+
+      if(section==="news"){
+        document.getElementById("pageTitle").textContent="Nyheder";
+        pageContent.innerHTML="<h3>Nyheder</h3><p>Ingen nyheder i øjeblikket.</p>";
+      }
+
+      if(section==="profile"){
+        document.getElementById("pageTitle").textContent="Profil";
+        const { data: userData } = await supabase.auth.getUser();
+        pageContent.innerHTML = \`
+          <h3>Profil</h3>
+          <p><strong>Email:</strong> \${userData.user.email}</p>
+          <button onclick="logoutUser()" style="padding:10px 12px;border:none;border-radius:8px;background:#ef4444;color:white;cursor:pointer;">Log ud</button>
+        \`;
+      }
+    }
+
+    async function logoutUser() {
+      await supabase.auth.signOut();
+      window.location.href = LOGIN_PAGE_URL;
+    }
+
+    window.showSection = showSection;
+    showSection("store");
+    renderCart();
+  </script>
 </body>
 </html>
