@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brokiosken Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand1: #2563eb;
+      --brand2: #3b82f6;
+      --accent: #06b6d4;
+      --danger: #ef4444;
+      --success: #10b981;
+      --text: #0f172a;
+      --muted: #64748b;
+      --bg: linear-gradient(145deg, #eaf2ff, #f1f5f9);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --border: rgba(255,255,255,0.2);
+      --shadow: 0 8px 40px rgba(0,0,0,0.1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --brand1: #1e3a8a;
+        --brand2: #2563eb;
+        --accent: #0ea5e9;
+        --danger: #f87171;
+        --success: #22c55e;
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --bg: linear-gradient(160deg, #0b1220, #111827);
+        --card-bg: rgba(17, 24, 39, 0.85);
+        --border: rgba(255,255,255,0.08);
+        --shadow: 0 8px 50px rgba(0,0,0,0.4);
+      }
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .3s ease, color .3s ease;
+    }
+
+    .login-container {
+      width: 90%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn .5s ease;
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: radial-gradient(65% 65% at 30% 30%, #60a5fa, var(--brand1));
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 24px rgba(37,99,235,0.4);
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 0;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtle {
+      color: var(--muted);
+      margin-bottom: 30px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.8);
+      color: var(--text);
+      transition: border .2s, box-shadow .2s;
+    }
+    input:focus {
+      border-color: var(--brand2);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2));
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37,99,235,0.25);
+    }
+
+    .alt-btn {
+      margin-top: 10px;
+      background: linear-gradient(90deg, var(--accent), #22d3ee);
+    }
+
+    #status {
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .footer {
+      margin-top: 36px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="logo">BK</div>
+    <h1>Brokiosken</h1>
+    <p class="subtle">Velkommen tilbage!<br>Log ind for at fortsætte til butikken.</p>
+
+    <input type="email" id="email" placeholder="Email" autocomplete="email" />
+    <input type="password" id="password" placeholder="Adgangskode" autocomplete="current-password" />
+
+    <button onclick="loginUser()">Log ind</button>
+    <button class="alt-btn" onclick="signupUser()">Opret ny konto</button>
+
+    <p id="status"></p>
+
+    <div class="footer">© 2025 Brokiosken ApS</div>
+  </div>
+
+  <!-- Supabase JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    /* === SUPABASE SETUP === */
+    const supabase = window.supabase.createClient(
+      "https://olfvimlmyqtadzkwiibg.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZnZpbWxteXF0YWR6a3dpaWJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxNDgyNTcsImV4cCI6MjA3NzcyNDI1N30.KgNwLHO7fDH1YCRb5cEc9Yo-mSNtae83B783o-0Hqr4"
+    );
+
+    /* === PLACEHOLDER: Change this to your main app URL === */
+    const MAIN_APP_URL = "https://your-main-site-url.com/main.html";
+    // Example: const MAIN_APP_URL = "/main.html";
+
+    /* === UI helpers === */
+    const statusEl = document.getElementById('status');
+    function showMessage(msg, success=true){
+      statusEl.textContent = msg;
+      statusEl.style.color = success ? 'var(--success)' : 'var(--danger)';
+      statusEl.style.opacity = '1';
+      setTimeout(()=>statusEl.style.opacity='0', 4000);
+    }
+
+    /* === AUTH FUNCTIONS === */
+    async function signupUser(){
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if(!email || !password) return showMessage('Udfyld email og adgangskode.', false);
+      const { error } = await supabase.auth.signUp({ email, password });
+      if(error) showMessage('Fejl: ' + error.message, false);
+      else showMessage('✅ Konto oprettet! Tjek din email for bekræftelse.', true);
+    }
+
+    async function loginUser(){
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if(!email || !password) return showMessage('Udfyld email og adgangskode.', false);
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if(error) return showMessage('Fejl: ' + error.message, false);
+      showMessage('✅ Logget ind! Sender dig videre...', true);
+      setTimeout(()=> window.location.href = MAIN_APP_URL, 1500);
+    }
+  </script>
+</body>
+</html>
