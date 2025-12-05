@@ -388,6 +388,7 @@
       position:fixed; right:24px; top:90px; width:340px; max-width:calc(100% - 48px);
       background: var(--card); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow);
       display:none; flex-direction:column; overflow:hidden; z-index:60; animation: fadeIn .25s ease;
+      color:#000;
     }
     .cart-header,
     .cart-actions{
@@ -482,7 +483,7 @@
       outline:none;
       width:70%;
       background:rgba(248,250,252,.9);
-      color:var(--text);
+      color:#000;
     }
     .offer-card input:focus{
       box-shadow:0 0 0 3px var(--ring);
@@ -770,6 +771,14 @@
 
     cartToggle.addEventListener('click', toggleCart);
 
+    document.addEventListener('click', (event) => {
+      if (cartDrawer.style.display === 'flex') {
+        if (!cartDrawer.contains(event.target) && !cartToggle.contains(event.target)) {
+          closeCart();
+        }
+      }
+    });
+    
     /* ================== ORDERS ================== */
     function getOrders(){ try{return JSON.parse(localStorage.getItem(LS.ORDERS)||'[]')}catch(_){return[]} }
     function saveOrders(o){ localStorage.setItem(LS.ORDERS, JSON.stringify(o)); }
