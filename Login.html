@@ -216,7 +216,7 @@
       if(!email || !password) return showMessage('Udfyld email og adgangskode.', false);
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if(error) return showMessage('Fejl: ' + error.message, false);
-      showMessage('✅ Logget ind! Sender dig videre...', true);
+      showMessage('✅ Logget ind! Sender dig videre....', true);
       setTimeout(()=> window.location.href = MAIN_APP_URL, 1500);
     }
   </script>
