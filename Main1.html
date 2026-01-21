@@ -1,3 +1,5 @@
+<!----- HTML kode ----->
+
 <!DOCTYPE html>
 <html lang="da">
 <head>
@@ -10,6 +12,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+
+
+
+  
   <style>
     /* ---------------- Theme ---------------- */
     :root{
@@ -90,7 +96,7 @@
       }
     }
 
-    /* Header / top bar */
+    /* top bar */
     .header{
       display:flex;
       align-items:center;
@@ -514,6 +520,11 @@
       to{opacity:1; transform:translateY(0);}
     }
   </style>
+
+
+
+
+  
 </head>
 <body>
   <div class="app-wrap" id="app">
@@ -597,12 +608,15 @@
       </div>
     </div>
   </div>
-
   <!-- Toast -->
   <div class="toast" id="toast"></div>
-
   <!-- Supabase (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+
+
+  
   <script>
     /* ================== CONFIG ================== */
     const LOGIN_PAGE_URL = "https://worlddude.github.io/Brokiosken/Login.html"; // 🔁 CHANGE THIS IF NEEDED
@@ -1205,5 +1219,10 @@
       showSection('store');
     }
   </script>
+
+
+
+
+  
 </body>
 </html>
